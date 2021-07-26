@@ -1,0 +1,30 @@
+<=== Golang Database ===>
+
+Pengenalan package Database ::>
+    - golang sudah menyediakan standar package databasenya.
+
+    cara kerja package Database ::>
+        ======>" Aplikasi -- (call) -- >>database interface -- (call) -- >>Database driver -- (call) -- >> DBMS "
+
+Database driver ::>
+    - wajib menambahkan driver databasenya
+    - https://golang.org/s/sqldrivers
+
+Database Pooling ::>
+    - manajement koneksi koneksi ke database
+
+Database Transaction ::>
+    - salah satu fitur andalan di database
+
+Transaction di Golang ::>
+    - secara defaultm semua perintah SQL yg kita kirim menggunakan Golang akan otomatis di commit, atau istilahnya auto commit
+    - Namun kita bisa menggunakan fitur transaksi sehinggga SQL yg kita kirim tidak secra otomatis di commit ke database
+    - untuk memulai transaksi, kita bisa mengguakan function(DB) Begin(), dimana akan menghasilkan struct Tx yg merupakan representasi Transaction
+    - struct Tx ini yg kita gunakan sebagai pengganti DB untuk melakukan transaksi, dimana hampir semua function di DB ada di Tx, seperti Rxec, Query atau Prepare
+    - Setelah selesai proses transaksi, kita bisa gunakan function(Tx)Commit() untuk melakukan commit atau Rollback()
+
+
+Repository Pattern ::>
+    - Dalam buku Domain-Driven Design, Eric Evans menjelaskan bahwa "repository is a mechanism for encapsulating storage, retrievel, and search behavior, which emulates a collection of objects"
+    - Pattern Repository ini biasanya digunakan sebagai jembatan antar business logic aplikasi kita dengan semua perintah SQL ke database
+    - Jadi semua perintah SQL akan dirulis di Repository, sedangkan businiss logic kode program kita hanya cukup menggunkana Repository tersebut
